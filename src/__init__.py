@@ -8,12 +8,14 @@ from .config import config
 db = MongoEngine()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
+login_manager.login_view = "users.login"
 # login_manager.login_view = 'main.index'
 
 #Factory Creation of App Allowing Ez calling of other config rules
 def create_app(config_name):
     app = Flask(__name__)
     #app.config is a dictionary object used for flask as well as package config
+    #anything in the config will be available as app.config[key] if you `from flask import current_app as app`
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
 
@@ -24,7 +26,7 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
 
     # How to add extra blueprint after creating a api folder 
-    # from .api import api as api_blueprint
-    # app.register_blueprint(api_blueprint, url_prefix='/api')
+    from .main import user as user_blueprint
+    app.register_blueprint(user_blueprint, url_prefix='/user')
 
     return app

@@ -13,6 +13,8 @@ pymongo = {extras = ["tls"],version = "*"}
 python-dotenv = "*"
 passlib = "*"
 dnspython = "*"
+requests = "*"
+praw = "*"
 
 [requires]
 python_version = "3.7"

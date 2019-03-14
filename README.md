@@ -3,8 +3,8 @@ This is a python flask base to build off of. It contains the following:
 - flask_login setup
 - mongoengine connecting to a mongolab setup
 - factory method for different dev/prod configurations
-- User model in MongoEngine
-- User registration route and page  
+- Users model in MongoEngine
+- Users registration route and page  
 - example form
 - example get and post routes
 - pipenv runtime setup

@@ -18,6 +18,12 @@ class DevelopmentConfig(Config):
         'ssl': True, 
         'ssl_cert_reqs': ssl.CERT_NONE
     }
+    
+    #REDDIT API
+    REDDIT_ID='m5Q5N6H9lFZ-qw'
+    REDDIT_SECRET='71pM2Gcqcr0QdbycdusmATGs7TI'
+    REDDIT_REDIRECT_URI='http://127.0.0.1:5000/'
+    REDDIT_USER_AGENT='android:mysignal:v0.1 (by /u/yourcousinbob)'
 
 config = {
     'development': DevelopmentConfig,
