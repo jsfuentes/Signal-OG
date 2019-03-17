@@ -3,7 +3,7 @@ from flask import current_app as app
 from flask_login import login_required, current_user, login_user, logout_user
 from passlib.hash import pbkdf2_sha256
 
-from ..utils import getRedditOauthURL
+from ..reddit import Reddit
 from ..models import Users
 from ..forms import RegistrationForm
 
@@ -11,13 +11,14 @@ user = Blueprint('user', __name__)
 
 @user.route('/')
 def index():
-    reddit_oauth_url = getRedditOauthURL(app.config)
+    reddit = Reddit(app.config)
+    reddit_oauth_url = reddit.getOauthURL()
     return render_template("index.html", reddit_oauth_url=reddit_oauth_url)
 
 @user.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        #Todo: not use wtf form and also verify confirmation
+        #Todo: not use wtf form for validation
         form = RegistrationForm(request.form)
         if not form.validate():
             flash("Form validation fails")
@@ -27,7 +28,7 @@ def register():
         user.save()
         login_user(user)
         flash('Im a flash: Thanks for registering')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('user.index'))
 
     return render_template('register.html')
     
@@ -47,7 +48,14 @@ def logout():
     logout_user()
     return redirect(url_for('user.index'))
         
-@user.route('/reddit_auth', methods=['POST'])
+@user.route('/reddit_auth')
 @login_required
 def reddit_auth():
-    print(request.args)
+    reddit_code = request.args["code"]
+    #TODO: verify state 
+    reddit = Reddit(app.config)
+    refresh_token = reddit.getRefreshToken(reddit_code)
+    current_user.reddit_refresh_token = refresh_token
+    current_user.save()
+    return redirect(url_for('user.index'))
+    
