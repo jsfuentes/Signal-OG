@@ -11,8 +11,8 @@ class Posts(Document):
 class Users(UserMixin, Document):
     email = EmailField(required=True)
     password_hash = StringField(required=True)
-    reddit_refresh_token = StringField()
     post_limit = IntField()
+    reddit_refresh_token = StringField()
     last_logged_in = DateTimeField()
     last_posts = ListField(ReferenceField(Posts))
 

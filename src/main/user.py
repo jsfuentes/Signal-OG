@@ -24,7 +24,7 @@ def register():
             flash("Form validation fails")
             return render_template('register.html')
         passwordHash = pbkdf2_sha256.hash(form.password.data)
-        user = Users(form.email.data, passwordHash)
+        user = Users(form.email.data, passwordHash, form.post_limit.data)
         user.save()
         login_user(user)
         flash('Im a flash: Thanks for registering')

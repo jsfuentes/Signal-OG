@@ -1,4 +1,4 @@
-from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from wtforms import Form, BooleanField, IntegerField, StringField, PasswordField, validators
 
 class RegistrationForm(Form):
     email = StringField('Email Address', [validators.Length(min=6, max=35)])
@@ -7,3 +7,4 @@ class RegistrationForm(Form):
         validators.EqualTo('confirm', message='Passwords must match')
     ])
     confirm = PasswordField('Repeat Password')
+    post_limit = IntegerField("Posts to Display")

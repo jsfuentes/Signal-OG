@@ -25,6 +25,16 @@ class Reddit:
         self._setReddit(refresh_token)
         return refresh_token
     
-    def getSubreddits(self, refresh_token):
+    def getSubreddits(self):
         return list(self.reddit.user.subreddits(limit=None))
-
+        
+    def getFront(self, limit):
+        front = self.reddit.front.best(limit=limit) #returns submissions
+        parsed_front = []
+        for post in front:
+            parsed_front.append({
+                'title': post.title, 
+                'selftext': post.selftext, 
+                'url': post.url
+            })
+        return parsed_front

@@ -9,6 +9,7 @@
 
   {% if current_user.is_authenticated %}
     <h2> Current User is {{ current_user.email }}</h2>
+    <h3> <a href={{ url_for('main.front') }}> Homepage me </a> </h3>
     <a href={{ reddit_oauth_url }}> <button> Authorize Reddit </button></a>
     <marquee><a href={{ url_for('user.logout') }}> Logout </a></marquee>
   {% endif %}
