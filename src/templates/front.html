@@ -10,10 +10,10 @@
   <div>
     {% for post in posts %}
       <h1> {{ post.title }} </h1>
-      {% if post.selftext == "" %}
+      {% if post.text == "" %}
         <div>{{ post.url }}</div>
       {% else %}
-        <div>{{ post.selftext}}</div>
+        <div>{{ post.text}}</div>
       {% endif %}
     {% endfor %}
   </div>

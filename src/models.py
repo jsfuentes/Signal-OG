@@ -3,10 +3,34 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from . import login_manager
 
+def redditToPost(post):
+    return {
+        'title': post.title, 
+        'text': post.selftext, 
+        'url': post.url,
+        'type': "reddit" #TODO: make subreddit
+    }
+
+def hnToPost(post):
+    print(post)
+    return {
+        'title': post['title'],
+        'text': post.get('text', ''),
+        'url': post['url'],
+        'type': "hackernews"
+    }
+
 class Posts(Document):
-    url = URLField(required=True)
-    type = StringField()
-    src = StringField()
+    title = StringField()
+    link = URLField()
+    text = StringField() 
+    type = StringField() #'text' => text main content, 'link' => url main content
+    score = IntField()
+    src = StringField() #subreddit/hackernews string
+    src_id = IntField()
+    src_data = DynamicField() #extra json with specific info for debug 
+    creation_utc = IntField()
+    last_updated_utc = IntField() #last time field was updated
 
 class Users(UserMixin, Document):
     email = EmailField(required=True)

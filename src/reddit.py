@@ -1,4 +1,5 @@
 import praw
+from .models import redditToPost
 
 class Reddit:
     def __init__(self, config, refresh_token=None):
@@ -32,9 +33,7 @@ class Reddit:
         front = self.reddit.front.best(limit=limit) #returns submissions
         parsed_front = []
         for post in front:
-            parsed_front.append({
-                'title': post.title, 
-                'selftext': post.selftext, 
-                'url': post.url
-            })
+            # print(post.name)
+            parsed_front.append(redditToPost(post))
+        # print("reddit", parsed_front)
         return parsed_front
