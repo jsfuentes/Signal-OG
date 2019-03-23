@@ -1,4 +1,4 @@
-from mongoengine import DateTimeField, Document, EmailField, IntField, ListField, ReferenceField, StringField, URLField
+from mongoengine import DateTimeField, Document, DynamicField, EmailField, IntField, ListField, ReferenceField, StringField, URLField
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from . import login_manager
@@ -11,10 +11,11 @@ class Posts(Document):
 class Users(UserMixin, Document):
     email = EmailField(required=True)
     password_hash = StringField(required=True)
-    post_limit = IntField()
+    post_limit = IntField(required=True)
     reddit_refresh_token = StringField()
     last_logged_in = DateTimeField()
     last_posts = ListField(ReferenceField(Posts))
+    recommendation_data = DynamicField()
 
     @property
     def password(self):

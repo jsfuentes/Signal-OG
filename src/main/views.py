@@ -21,3 +21,7 @@ def front():
     reddit = Reddit(app.config, current_user.reddit_refresh_token)
     front = reddit.getFront(current_user.post_limit) #if url, selftext will be ""
     return render_template("front.html", posts=front)
+    
+# @main.route('/yc')
+# def yc():
+    
