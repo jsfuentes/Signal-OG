@@ -15,6 +15,10 @@ passlib = "*"
 dnspython = "*"
 requests = "*"
 praw = "*"
+python-dateutil = "*"
+aiohttp = "*"
+aiodns = "*"
+cchardet = "*"
 
 [requires]
 python_version = "3.7"
